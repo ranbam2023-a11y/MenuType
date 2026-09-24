@@ -22,14 +22,29 @@ otool -L MenuType.app/Contents/MacOS/MenuType | grep -iE 'network|cfnetwork'   #
 nm -u MenuType.app/Contents/MacOS/MenuType | grep -ciE 'URLSession|CFNetwork|socket'  # 0
 ```
 
-## Run it
+## Install
 
-```bash
-./build.sh          # release build + MenuType.app bundle + ad-hoc sign
-open MenuType.app
+Grab `MenuType-1.0.0.dmg` from the [latest
+release](https://github.com/ranbam2023-a11y/MenuType/releases/latest), open it,
+and drag **MenuType** onto **Applications**. macOS 13 or later.
+
+The app is **ad-hoc signed, not notarised**, so Gatekeeper blocks the first
+launch. Right-click the app and pick **Open**, then confirm — or:
+
+```sh
+xattr -d com.apple.quarantine /Applications/MenuType.app
 ```
 
-Quit from the panel's **Quit** button, or `pkill -x MenuType`.
+There is no Dock icon and no window: MenuType lives in the menu bar. Quit from
+the panel's **Quit** button, or `pkill -x MenuType`.
+
+## Build from source
+
+```bash
+./build.sh          # release build + MenuType.app bundle + icon + ad-hoc sign
+./make-dmg.sh       # the above, then package MenuType-1.0.0.dmg
+open MenuType.app
+```
 
 ## The panel
 
